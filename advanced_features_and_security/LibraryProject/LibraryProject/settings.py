@@ -23,7 +23,38 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ezq06^+tsb2-nq!dz+!k_0j&fh(ad12td0z$nyp^lyz9qd6^s('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# ============================
+# SECURITY BEST PRACTICES
+# ============================
+
+# Disable debug mode in production (required by ALX)
+DEBUG = False
+
+# Protect against browser-based attacks
+SECURE_BROWSER_XSS_FILTER = True            # Prevent reflected XSS
+SECURE_CONTENT_TYPE_NOSNIFF = True          # Prevent MIME-type sniffing
+X_FRAME_OPTIONS = "DENY"                    # Prevent clickjacking
+
+# Ensure cookies sent only via HTTPS (production requirement)
+CSRF_COOKIE_SECURE = True                   # CSRF cookie only over HTTPS
+SESSION_COOKIE_SECURE = True                # Session cookie only over HTTPS
+
+# (Optional) redirect all traffic to HTTPS if deployed on HTTPS
+SECURE_SSL_REDIRECT = False  # Set TRUE only when hosting on HTTPS
+
+# CONTENT SECURITY POLICY (CSP)
+# You can use django-csp OR add your own middleware.
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "data:")
+
+# Documentation inside file (required by ALX)
+# These settings secure the application by:
+# - Preventing XSS attacks via browser filters and CSP
+# - Blocking clickjacking using X_FRAME_OPTIONS
+# - Enforcing secure cookies over HTTPS
+# - Preventing MIME sniffing
 
 ALLOWED_HOSTS = []
 
