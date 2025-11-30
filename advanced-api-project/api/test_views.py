@@ -2,13 +2,20 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from .models import Book
+from django.contrib.auth.models import User
+
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
-        # Create sample books
+    # Create a test user
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+    
+    # Log in the test client
+        self.client.login(username='testuser', password='testpass')
+    
+    # Sample books
         Book.objects.create(title="Harry Potter", author="J.K. Rowling", publication_year=1997)
         Book.objects.create(title="Animal Farm", author="George Orwell", publication_year=1945)
-        Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
 
     def test_list_books(self):
         url = reverse('book-list')  # Make sure your URL name matches
