@@ -1,0 +1,11 @@
+<!-- blog/templates/blog/register.html -->
+{% extends "blog/base.html" %}
+{% block content %}
+<h2>Register</h2>
+<form method="POST">
+  {% csrf_token %}  <!-- <-- THIS IS REQUIRED -->
+  {{ form.as_p }}
+  <button type="submit">Sign Up</button>
+</form>
+<a href="{% url 'login' %}">Already have an account? Login</a>
+{% endblock %}
