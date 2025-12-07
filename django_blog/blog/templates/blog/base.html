@@ -1,7 +1,4 @@
-{% if messages %}
-  <ul>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+<form method="get" action="{% url 'search-results' %}">
+  <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q|default:'' }}">
+  <button type="submit">Search</button>
+</form>

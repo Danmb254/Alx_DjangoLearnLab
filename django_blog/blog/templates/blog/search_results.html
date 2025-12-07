@@ -1,0 +1,6 @@
+<h1>Search results for "{{ request.GET.q }}"</h1>
+{% if posts %}
+  {% include 'blog/post_list_items.html' %}
+{% else %}
+  <p>No posts match your query.</p>
+{% endif %}
