@@ -102,3 +102,16 @@ class SearchResultsView(ListView):
         return Post.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
         ).distinct().order_by('-published_date')
+    
+from django.views.generic import ListView
+from .models import Post
+from taggit.models import Tag
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'  # create this template
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        return Post.objects.filter(tags__slug=tag_slug)
