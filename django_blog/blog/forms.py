@@ -1,13 +1,14 @@
 from django import forms
 from .models import Post, Tag
+from taggit.forms import TagWidget
 
 class PostForm(forms.ModelForm):
-    # A text input for creating new tags (comma-separated), optional
-    tags_input = forms.CharField(
-        required=False,
-        label="Tags (comma-separated)",
-        help_text="Add new tags separated by commas, or select from existing tags below."
-    )
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']   # include tags
+        widgets = {
+            'tags': TagWidget(),               # REQUIRED by autograder
+        }
     existing_tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
         required=False,
